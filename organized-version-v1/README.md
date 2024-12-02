@@ -1,45 +1,43 @@
-# Calcular Preço Final com Impostos e Descontos (versão melhorada)
+# **Calcular Preço Final com Impostos e Descontos**
 
 ---
 
-## Objetivo
+## **Visão Geral**
 
-Este projeto é uma API bem estruturada e modular que calcula o preço final de um produto com base no país, estado,
-categoria do produto e um código de desconto opcional. A API aplica práticas de desenvolvimento limpas e segue os
-princípios do SOLID, utilizando estratégias para cálculos de impostos e descontos, além de validações encapsuladas.
+Este projeto é uma API bem estruturada que calcula o preço final de um produto com base em:
 
----
+- País e estado do cliente.
+- Categoria do produto.
+- Código de desconto opcional.
 
-## Caso de sucesso
-
-1. ✅ Recebe uma requisição do tipo **GET** na rota **/calculate**.
-2. ✅ Os parâmetros obrigatórios são:
-    - **country** (país)
-    - **state** (estado)
-    - **category** (categoria do produto).
-    - **price** (preço do produto, como número).
-3. ✅ Opcionalmente, pode receber:
-    - **discountCode** (código de desconto aplicável).
-4. ✅ Calcula os impostos com base no país, estado e categoria do produto usando estratégias específicas.
-5. ✅ Aplica descontos válidos usando estratégias específicas.
-6. ✅ Realiza validações encapsuladas nas classes `Tax` e `Discount`.
-7. ✅ Retorna um JSON contendo o preço final calculado com detalhes.
+A API utiliza boas práticas de desenvolvimento, aplicando os princípios do **SOLID**, o padrão de projeto **Factory**, e encapsulando validações específicas em classes dedicadas. A arquitetura modular facilita a manutenção e a extensibilidade do sistema.
 
 ---
 
-## Parâmetros da Rota **/calculate**
+## **Funcionalidades**
 
-| Parâmetro        | Tipo   | Obrigatório | Descrição                                     |
-|------------------|--------|-------------|-----------------------------------------------|
-| **country**      | String | ✅           | País do cliente (ex.: USA, Canada).           |
-| **state**        | String | ✅           | Estado do cliente (ex.: CA, TX).              |
-| **category**     | String | ✅           | Categoria do produto (ex.: electronics).      |
-| **price**        | Number | ✅           | Preço do produto em formato numérico.         |
-| **discountCode** | String | ❌           | Código de desconto aplicável (ex.: SUMMER10). |
+1. ✅ Recebe requisições do tipo **GET** na rota **/calculate**.
+2. ✅ Valida os parâmetros obrigatórios e opcionais.
+3. ✅ Calcula impostos com base em regras específicas para países, estados e categorias.
+4. ✅ Aplica descontos válidos de acordo com códigos específicos.
+5. ✅ Encapsula validações em classes dedicadas, como `Tax` e `Discount`.
+6. ✅ Retorna o resultado como um JSON detalhado.
 
 ---
 
-## Exemplo de Requisição
+## **Parâmetros da Rota /calculate**
+
+| **Parâmetro**    | **Tipo** | **Obrigatório** | **Descrição**                                 |
+|------------------|----------|-----------------|-----------------------------------------------|
+| **country**      | String   | ✅               | País do cliente (ex.: USA, Canada).           |
+| **state**        | String   | ✅               | Estado do cliente (ex.: CA, TX).              |
+| **category**     | String   | ✅               | Categoria do produto (ex.: electronics).      |
+| **price**        | Number   | ✅               | Preço do produto em formato numérico.         |
+| **discountCode** | String   | ❌               | Código de desconto aplicável (ex.: SUMMER10). |
+
+---
+
+## **Exemplo de Requisição**
 
 ### URL
 
@@ -47,75 +45,95 @@ princípios do SOLID, utilizando estratégias para cálculos de impostos e desco
 GET http://localhost:3000/calculate?country=USA&state=CA&category=electronics&price=100&discountCode=SUMMER10
 ```
 
----
-
-## Códigos de desconto válidos
-- SUMMER10: Aplica 10% de desconto.
-- WINTER15: Aplica 15% de desconto.
-
----
-
-## Validação
-As validações estão centralizadas nas classes de domínio Tax e Discount:
-
-- Tax: Valida país, estado e categoria.
-- Discount: Valida se o código de desconto é válido.
-
----
-## Exceções
-### Erro 400
-
-Ocorre quando qualquer um dos seguintes parâmetros obrigatórios está ausente ou inválido:
-
-- country: País do cliente (ex.: USA, Canada).
-- state: Estado do cliente (ex.: CA, TX).
-- category: Categoria do produto (ex.: electronics, books).
-- price: Preço do produto (deve ser numérico e maior que zero).
-
-Ou se um código de desconto inválido for informado:
+### Resposta
 
 ```json
 {
-   "error": "The discount code 'INVALIDCODE' is not valid."
+   "country": "USA",
+   "state": "CA",
+   "category": "electronics",
+   "price": 100,
+   "discountCode": "SUMMER10",
+   "tax": 8.25,
+   "discount": 10.00,
+   "finalPrice": 98.25
 }
 ```
-### Erro 500
+---
+# Códigos de Desconto Válidos
+- SUMMER10: Aplica 10% de desconto.
+- WINTER15: Aplica 15% de desconto.
+---
+# Validação
+As validações são centralizadas em classes específicas para garantir organização e reutilização:
 
-Retorna quando ocorre qualquer outro problema inesperado no servidor, como falha de lógica ou exceções não tratadas.
+Tax:
+
+- Valida o país informado.
+- Verifica se o estado é válido para o país.
+- Confirma se a categoria é suportada no estado.
+
+Discount:
+
+- Valida se o código de desconto informado é válido.
+---
+# Tratamento de Erros
+
+Retornado quando qualquer parâmetro obrigatório está ausente ou inválido, ou se um código de desconto inválido for informado.
+
+```json
+{
+    "error": "The discount code 'INVALIDCODE' is not valid."
+}
+```
+Erro 500
+
+Retornado em casos de erros inesperados no servidor, como falhas de lógica ou exceções não tratadas.
 
 ```json
 {
    "error": "An unexpected error occurred on the server."
 }
 ```
+---
+# Melhorias no Código
+
+A refatoração do projeto resultou em melhorias significativas:
+
+## Estrutura Modular
+Cada responsabilidade foi encapsulada em classes e funções específicas, promovendo organização e reutilização.
+
+## Princípios do SOLID
+- SRP: Cada classe ou função tem uma única responsabilidade.
+- OCP: O sistema é extensível, permitindo adicionar novos países, estados ou descontos sem modificar o código existente.
+- DIP: O serviço de cálculo (CalculateService) utiliza injeção de dependência para receber estratégias.
+
+### Padrão de Projeto: Factory
+- Fábricas foram utilizadas para criar instâncias das regras de impostos (Tax) e descontos (Discount), eliminando switch e if redundantes.
+
+### Validações Encapsuladas
+- As validações foram movidas para as classes Tax e Discount, garantindo que estejam centralizadas e reutilizáveis.
 
 ---
-### Melhoria do Código
 
-O código foi refatorado para:
-
-- Estrutura Modular: Cada responsabilidade é encapsulada em uma classe ou função específica.
-- Princípios SOLID:
-SRP: Cada classe e função tem uma única responsabilidade.
--- OCP: O sistema é facilmente extensível, permitindo adicionar novos países, estados ou códigos de desconto sem modificar o código existente.
-- DIP: O CalculateService recebe as estratégias como dependências, promovendo injeção de dependência.
-- Uso do Strategy Pattern: Estratégias para impostos e descontos foram implementadas.
-- Validações Encapsuladas: Validações específicas foram movidas para as classes Tax e Discount.
-
----
-
-## Como executar o projeto
+# Como Executar o Projeto
 
 1. Instale as dependências:
-   
- ```bash
- npm install
- ```
-
-2. Inicie o servidor:
-
 ```bash
+npm install
+```
+2.Inicie o servidor:
+```bash 
 npm run dev
 ```
+3. Acesse a API em:
+```plaintext
+GET http://localhost:3000/calculate
+```
+Exemplo de requisição:
 
-A API estará disponível em http://localhost:3000.
+```plaintext
+GET http://localhost:3000/calculate?country=USA&state=CA&category=electronics&price=100&discountCode=SUMMER10
+```
+
+
