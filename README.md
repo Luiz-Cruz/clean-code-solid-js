@@ -10,13 +10,24 @@ Este projeto apresenta duas implementações para uma API que calcula o preço f
 
 ## Estrutura do Projeto
 
+Versão referência para o desafio`organized-version-v1`:
+
 ```plaintext
-├── unorganized-version/
-│   ├── .gitignore
-│   ├── app.js
-│   ├── package.json
+├── organized-version-v1/
+│   ├── src/
+│   │   ├── controllers/
+│   │   ├── database/
+│   │   ├── entities/
+│   │   ├── factories/
+│   │   ├── middlewares/
+│   │   ├── repositories/
+│   │   ├── routes/
+│   │   ├── services/
+│   │   ├── .gitignore
+│   │   ├── app.js
+│   │   ├── package.json
 │   └── README.md
-├── organized-version/
+├── organized-version-v2/
 │   ├── src/
 │   │   ├── controllers/
 │   │   ├── database/
@@ -30,7 +41,13 @@ Este projeto apresenta duas implementações para uma API que calcula o preço f
 │   │   ├── app.js
 │   │   ├── package.json
 │   └── README.md
+├── unorganized-version/
+│   ├── .gitignore
+│   ├── app.js
+│   ├── package.json
+│   └── README.md
 └── README.md
+
 ```
 
 ---
