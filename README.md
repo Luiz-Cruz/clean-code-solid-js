@@ -147,9 +147,9 @@ Este projeto foi criado para:
 ---
 
 # Como Executar
-unorganized-version
+unorganized-version-v1 ou unorganized-version-v2
 ```bash
-cd unorganized-version
+cd unorganized-version-v1
 npm install
 npm run dev
 ```
