@@ -108,15 +108,15 @@ Adesão ao SOLID:
 # Comparação Resumida
 
 
-| **Aspecto**           | **Unorganized-Version**                     | **Organized-Version**                                                |
-|-----------------------|---------------------------------------------|----------------------------------------------------------------------|
-| **Estrutura**         | Monolítica                                  | Modular e bem organizada                                             |
-| **Legibilidade**      | Baixa                                       | Alta                                                                 |
-| **Testabilidade**     | Difícil de testar                           | Fácil de testar                                                      |
-| **Extensibilidade**   | Difícil de expandir                         | Fácil de expandir                                                    |
-| **Manutenção**        | Complexa                                    | Simples                                                              |
-| **Padrões de Design** | Não segue padrões                           | Usa Strategy, Service e Repository Pattern e Injeção de Dependências |
-| **Validações**        | Misturadas com a lógica principal           | Encapsuladas em classes específicas                                  |
+| **Aspecto**           | **Unorganized-Version**                     | **Organized-Version**                                               |
+|-----------------------|---------------------------------------------|---------------------------------------------------------------------|
+| **Estrutura**         | Monolítica                                  | Modular e bem organizada                                            |
+| **Legibilidade**      | Baixa                                       | Alta                                                                |
+| **Testabilidade**     | Difícil de testar                           | Fácil de testar                                                     |
+| **Extensibilidade**   | Difícil de expandir                         | Fácil de expandir                                                   |
+| **Manutenção**        | Complexa                                    | Simples                                                             |
+| **Padrões de Design** | Não segue padrões                           | Usa Strategy, Service, Repository Pattern e Injeção de Dependências |
+| **Validações**        | Misturadas com a lógica principal           | Encapsuladas em classes específicas                                 |
 
 ---
 
